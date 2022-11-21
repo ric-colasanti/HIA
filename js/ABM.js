@@ -1,6 +1,13 @@
 function rndInt(maxVal) {
     return Math.floor(Math.random() * maxVal);
 }
+function rndColor(){
+    return "rgb(" + rndInt(255) + "," + rndInt(255) + "," + rndInt(255) + ")"
+}
+function rndGray(){
+    let gray = rndInt(20)+150
+    return "rgb(" + gray + "," + gray + "," + gray + ")"
+}
 
 class CACanvas {
     constructor(size, cSize = 40) {
@@ -10,10 +17,17 @@ class CACanvas {
         this.buffer.width = this.size * this.cSize;
         this.buffer.height = this.size * this.cSize;
         this.ctx = this.buffer.getContext("2d");
-        let visible_canvas = document.getElementById("canvas");
-        visible_canvas.width=400
-        visible_canvas.height=400
     }
+
+    getCell(x,y,canvasID) {
+        let visible_canvas = document.getElementById(canvasID);
+        let rect = visible_canvas.getBoundingClientRect()
+        let cSize = visible_canvas.width/this.size
+        x-=rect.left
+        y-=rect.top
+        return [Math.floor(x/cSize),Math.floor(y/cSize)]
+    }
+    
 
     draw(x, y, cellColor, circle = false, circleColor = "#000000") {
         this.ctx.beginPath();
@@ -76,6 +90,7 @@ class CACanvas {
         let visible_canvas = document.getElementById(canvasID);
         let vctx = visible_canvas.getContext("2d");
         vctx.drawImage(this.buffer, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height, 0, 0, vctx.canvas.width, vctx.canvas.height);
+        console.log(vctx.canvas.width)
     }
 }
 
