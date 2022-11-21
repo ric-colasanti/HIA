@@ -1,11 +1,11 @@
 function rndInt(maxVal) {
     return Math.floor(Math.random() * maxVal);
 }
-function rndColor(){
+function rndColor() {
     return "rgb(" + rndInt(255) + "," + rndInt(255) + "," + rndInt(255) + ")"
 }
-function rndGray(){
-    let gray = rndInt(20)+150
+function rndGray() {
+    let gray = rndInt(20) + 150
     return "rgb(" + gray + "," + gray + "," + gray + ")"
 }
 
@@ -19,15 +19,15 @@ class CACanvas {
         this.ctx = this.buffer.getContext("2d");
     }
 
-    getCell(x,y,canvasID) {
+    getCell(x, y, canvasID) {
         let visible_canvas = document.getElementById(canvasID);
         let rect = visible_canvas.getBoundingClientRect()
-        let cSize = visible_canvas.width/this.size
-        x-=rect.left
-        y-=rect.top
-        return [Math.floor(x/cSize),Math.floor(y/cSize)]
+        let cSize = visible_canvas.width / this.size
+        x -= rect.left
+        y -= rect.top
+        return [Math.floor(x / cSize), Math.floor(y / cSize)]
     }
-    
+
 
     draw(x, y, cellColor, circle = false, circleColor = "#000000") {
         this.ctx.beginPath();
@@ -44,12 +44,12 @@ class CACanvas {
             this.ctx.stroke();
         }
     }
- 
-    
-    drawCircle(x, y,colour,fcolor="black",sz=0,thick=1) {
-        let offset = Math.floor(this.cSize / 2)-2;
+
+
+    drawCircle(x, y, colour, fcolor = "black", sz = 0, thick = 1) {
+        let offset = Math.floor(this.cSize / 2) - 2;
         this.ctx.beginPath();
-        this.ctx.arc(x * this.cSize + offset+sz/2, y * this.cSize + offset+sz/2, offset - (sz+1), 0, 2 * Math.PI)
+        this.ctx.arc(x * this.cSize + offset + sz / 2, y * this.cSize + offset + sz / 2, offset - (sz + 1), 0, 2 * Math.PI)
         this.ctx.fillStyle = colour;
         this.ctx.fill();
         this.ctx.strokeStyle = fcolor;
@@ -57,33 +57,33 @@ class CACanvas {
         this.ctx.stroke();
     }
 
-    drawSquare(x, y, colour,width=0,bcolor="black") {
+    drawSquare(x, y, colour, width = 0, bcolor = "black") {
         this.ctx.beginPath();
         this.ctx.rect(x * this.cSize, y * this.cSize, this.cSize, this.cSize)
         this.ctx.fillStyle = colour;
         this.ctx.fill();
         this.ctx.strokeStyle = bcolor;
-        this.ctx.lineWidth=width
+        this.ctx.lineWidth = width
         this.ctx.stroke();
     }
 
-    drawLine(x1,y1,x2,y2,color= '#000000', thick = 1){
+    drawLine(x1, y1, x2, y2, color = '#000000', thick = 1) {
         this.ctx.beginPath();
         this.ctx.strokeStyle = color;
         this.ctx.lineWidth = thick;
         let offset = Math.floor(this.cSize / 2);
-        this.ctx.moveTo(x1 * this.cSize+offset, y1 * this.cSize+offset)
-        this.ctx.lineTo(x2 * this.cSize+offset, y2 * this.cSize+offset)
+        this.ctx.moveTo(x1 * this.cSize + offset, y1 * this.cSize + offset)
+        this.ctx.lineTo(x2 * this.cSize + offset, y2 * this.cSize + offset)
         this.ctx.stroke();
-        this.ctx.lineWidth=1;
+        this.ctx.lineWidth = 1;
     }
 
-    clear(colour="#ffffff"){
+    clear(colour = "#ffffff") {
         this.ctx.beginPath();
-        this.ctx.rect(0,0, this.buffer.width, this.buffer.height)
+        this.ctx.rect(0, 0, this.buffer.width, this.buffer.height)
         this.ctx.fillStyle = colour;
         this.ctx.fill();
-        
+
     }
 
     update(canvasID) {
@@ -151,7 +151,6 @@ class Patches {
 
     setNeighbors() {
         for (var i = 0; i < this.list.length; i++) {
-            let neighbors = new Array();
             let patch = this.list[i];
             let coord = this.coordinates(i);
             for (let x = coord.x - 1; x <= coord.x + 1; x++) {
@@ -175,44 +174,50 @@ class Patches {
             let coord = this.coordinates(i);
             let x = coord.x
             let y = coord.y
-            let xx = this.yBounds(x-1);
+            let xx = this.yBounds(x - 1);
             let yy = this.yBounds(y);
             let pos = this.position(xx, yy)
             patch.neighbors.push(this.list[pos])
-            xx = this.yBounds(x+1);
+            xx = this.yBounds(x + 1);
             yy = this.yBounds(y);
             pos = this.position(xx, yy)
             patch.neighbors.push(this.list[pos])
             xx = this.yBounds(x);
-            yy = this.yBounds(y-1);
+            yy = this.yBounds(y - 1);
             pos = this.position(xx, yy)
             patch.neighbors.push(this.list[pos])
             xx = this.yBounds(x);
-            yy = this.yBounds(y+1);
+            yy = this.yBounds(y + 1);
             pos = this.position(xx, yy)
             patch.neighbors.push(this.list[pos])
         }
     }
 
     shuffle() {
-        let currentIndex = this.list.length,  randomIndex;
-      
+        let currentIndex = this.list.length, randomIndex;
+
         // While there remain elements to shuffle.
         while (currentIndex != 0) {
-      
-          // Pick a remaining element.
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
-      
-          // And swap it with the current element.
-          [this.list[currentIndex], this.list[randomIndex]] = [
-            this.list[randomIndex], this.list[currentIndex]];
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [this.list[currentIndex], this.list[randomIndex]] = [
+                this.list[randomIndex], this.list[currentIndex]];
         }
 
-      }
-      getRandomPatch(){
-        return this.list[rndInt(this.list.length)]   
     }
+    getRandomPatch() {
+        return this.list[rndInt(this.list.length)]
+    }
+    getDistance(toPatch) {
+        let xdif = Math.abs(this.xPos() - toPatch.xPos())
+        let ydif = Math.abs(this.yPos() - toPatch.yPos())
+        return Math.sqrt(Math.abs(xdif * xdif + ydif * ydif))
+    }
+
 }
 
 
@@ -223,7 +228,7 @@ class Patch {
         this.yPos = 0;
         this.neighbors = new Array();
         this.occupant = null
-        this.occupants=[]
+        this.occupants = []
         this.numberOfNeighbors = 0
     }
 
@@ -231,29 +236,29 @@ class Patch {
         this.occupant = agent;
         agent.home = this;
     }
-    
+
     addAgentTo(agent) {
         this.occupants.push(agent);
         agent.home = this;
     }
 
-    removeAgent(){
+    removeAgent() {
         this.occupant.home = null
-        this.occupant=nul
+        this.occupant = nul
     }
-    
-    removeAgentFrom(agent){
-        if(this.occupants.includes(agent)){
-            this.occupants.splice(this.occupants.indexOf(agent),1)
+
+    removeAgentFrom(agent) {
+        if (this.occupants.includes(agent)) {
+            this.occupants.splice(this.occupants.indexOf(agent), 1)
             agent.home = null;
         }
     }
 
-    getRandomNeighbor(){
+    getRandomNeighbor() {
         return this.neighbors[rndInt(this.neighbors.length)]
     }
-    
-    getNumberOfOccupants(){
+
+    getNumberOfOccupants() {
         return this.occupants.length
     }
 }
@@ -267,15 +272,15 @@ class Agent {
     addLink(anAgent) {
         this.links.push(anAgent);
     }
-    xPos(){
-        if (this.home != null) {    
+    xPos() {
+        if (this.home != null) {
             return this.home.xPos;
         }
         return 0
     }
 
-    yPos(){
-        if (this.home != null) {    
+    yPos() {
+        if (this.home != null) {
             return this.home.yPos;
         }
         return 0
@@ -295,19 +300,19 @@ class Agents {
     }
 
     shuffle() {
-        let currentIndex = this.list.length,  randomIndex;
-      
+        let currentIndex = this.list.length, randomIndex;
+
         // While there remain elements to shuffle.
         while (currentIndex != 0) {
-      
-          // Pick a remaining element.
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
-      
-          // And swap it with the current element.
-          [this.list[currentIndex], this.list[randomIndex]] = [
-            this.list[randomIndex], this.list[currentIndex]];
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [this.list[currentIndex], this.list[randomIndex]] = [
+                this.list[randomIndex], this.list[currentIndex]];
         }
 
-      }
+    }
 }

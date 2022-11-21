@@ -13,9 +13,9 @@ visible_canvas.addEventListener("click", canvasClick);
        
 
 class LandType extends Patch {
-    constructor(color) {
+    constructor(id) {
         super();
-        this.color = color;
+        this.id = id
         this.type = "land"
     }
 }
@@ -43,18 +43,25 @@ class Shop extends Agent {
 
 function canvasClick(event){
     xy= caCanvas.getCell(event.clientX,event.clientY,"cacanvas");
-    land = places.getPatch(xy[0],xy[1])
-    land.color = "green"
+    for( x = xy[0]-3; x<= xy[0]+3; x++){
+        for( y = xy[1]-3; y<= xy[1]+3; y++){
+            land = places.getPatch(x,y)
+            land.color = "rgb("+((Math.abs(x-xy[0])*20))+",255,"+((Math.abs(x-xy[0])*20))+")"
+        }
+    }
+    
     draw()
 }
 
 var setup = function () {
 
     places = new Patches(size);
+    let id = 0
     for(let x= 0 ; x<size; x++){
         for(let y = 0; y<size; y++){
-            const land = new LandType()
+            const land = new LandType(id)
             land.color= rndGray()
+            id+=1
             places.addPatch(land)
             if(rndInt(100)<50){
                 agent = new Person(0, "red");
@@ -63,8 +70,11 @@ var setup = function () {
             }
         }
     }
+    places.setNeighbors()
     
 }
+
+
 
 var draw = function () {
     places.list.forEach(function (land, index) {
