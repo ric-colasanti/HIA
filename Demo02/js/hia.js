@@ -98,6 +98,7 @@ var setup = function () {
     places
     population = []
     greenspaces = []
+    data = []
     places = new Patches(size);
     let id = 0
     for (let x = 0; x < size; x++) {
