@@ -1,4 +1,6 @@
 var size = 50;
+var households = 40
+var maxDistance = Math.sqrt(size*size+size*size)
 let visible_canvas = document.getElementById("cacanvas");
 visible_canvas.width=600
 visible_canvas.height=600
@@ -7,10 +9,13 @@ var caCanvas = new CACanvas(size);
 var places
 var population = []
 visible_canvas.addEventListener("click", canvasClick);
-// visible_canvas.addEventListener("click",function(e){
-//             console.log(caCanvas.getCell(e.clientX,e.clientY,"cacanvas"));
-//         })
+
        
+var setVals = function () {
+    console.log("here");
+    households = Number(document.getElementById("numberOfHomes").value);
+    document.getElementById("numberOfHomes").innerHTML = households
+}   
 
 class LandType extends Patch {
     constructor(id) {
@@ -42,11 +47,23 @@ class Shop extends Agent {
  
 
 function canvasClick(event){
-    xy= caCanvas.getCell(event.clientX,event.clientY,"cacanvas");
-    for( x = xy[0]-3; x<= xy[0]+3; x++){
-        for( y = xy[1]-3; y<= xy[1]+3; y++){
-            land = places.getPatch(x,y)
-            land.color = "rgb("+((Math.abs(x-xy[0])*20))+",255,"+((Math.abs(x-xy[0])*20))+")"
+    [x,y]= caCanvas.getCell(event.clientX,event.clientY,"cacanvas");
+    land = places.getPatch(x,y)
+    if(land.type == "green"){
+        land.type="land"
+        land.color=rndGray()
+    }else{
+        land.type="green"
+        land.color="green"
+    
+        for(let i=0; i<population.length;i++){
+            person = population[i]
+            let d =1-(land.getDistance(person.home)/maxDistance)
+            if(d>person.health){
+                person.health = d
+                let col = "rgb(50,"+Math.floor(255*d)+",50)"
+                person.color = col
+            }
         }
     }
     
@@ -54,7 +71,8 @@ function canvasClick(event){
 }
 
 var setup = function () {
-
+    places
+    population = []
     places = new Patches(size);
     let id = 0
     for(let x= 0 ; x<size; x++){
@@ -63,7 +81,7 @@ var setup = function () {
             land.color= rndGray()
             id+=1
             places.addPatch(land)
-            if(rndInt(100)<50){
+            if(rndInt(100)<households){
                 agent = new Person(0, "red");
                 population.push(agent)
                 land.addAgent(agent)
@@ -71,6 +89,7 @@ var setup = function () {
         }
     }
     places.setNeighbors()
+    draw()
     
 }
 
@@ -82,11 +101,12 @@ var draw = function () {
     });
     for (let i = 0; i < population.length; i++) {
         const person = population[i];
+        console.log(person.color);
         caCanvas.drawCircle(person.xPos(), person.yPos(), person.color, "black", 4, 1);
     }
     caCanvas.update("cacanvas");
 }
 
 
-setup()
-draw()
+
+

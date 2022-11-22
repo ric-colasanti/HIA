@@ -31,9 +31,26 @@
           <canvas id="cacanvas" style=" width:600px; height:600px"></canvas>
         </div>
         <div class="col-sm-5">
-
+          <div >Percentage households</div>
+          <div >
+            <input
+              type="range"
+              min="1"
+              max="100"
+              value="40"
+              class="slider"
+              id="numberOfHomes"
+              onchange="setVals()"
+            />
+          </div>
+          <div>
+            <span id="numberOfHomesLab">40</span>%
         </div>
+        <button class="btn btn-primary tablinks" onclick="setup()">
+          Set
+        </button>
   </div>
+  
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>

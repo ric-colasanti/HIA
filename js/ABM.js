@@ -212,11 +212,7 @@ class Patches {
     getRandomPatch() {
         return this.list[rndInt(this.list.length)]
     }
-    getDistance(toPatch) {
-        let xdif = Math.abs(this.xPos() - toPatch.xPos())
-        let ydif = Math.abs(this.yPos() - toPatch.yPos())
-        return Math.sqrt(Math.abs(xdif * xdif + ydif * ydif))
-    }
+   
 
 }
 
@@ -260,6 +256,12 @@ class Patch {
 
     getNumberOfOccupants() {
         return this.occupants.length
+    }
+
+    getDistance(toPatch) {
+        let xdif = Math.abs(this.xPos - toPatch.xPos)
+        let ydif = Math.abs(this.yPos - toPatch.yPos)
+        return Math.sqrt(Math.abs(xdif * xdif + ydif * ydif))
     }
 }
 
