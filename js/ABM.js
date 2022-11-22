@@ -90,7 +90,6 @@ class CACanvas {
         let visible_canvas = document.getElementById(canvasID);
         let vctx = visible_canvas.getContext("2d");
         vctx.drawImage(this.buffer, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height, 0, 0, vctx.canvas.width, vctx.canvas.height);
-        console.log(vctx.canvas.width)
     }
 }
 
@@ -106,6 +105,7 @@ class Patches {
         this.size = size * size;
     }
 
+    
     coordinates(num) {
         let x = num % this.xMax;
         let y = Math.floor(num / this.yMax);
