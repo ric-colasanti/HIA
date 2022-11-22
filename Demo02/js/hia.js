@@ -87,7 +87,6 @@ var healthUpdate = function () {
     for (let i = 0; i < population.length; i++) {
         const person = population[i];
         total+=person.health
-        lo
     }
     data=[["Health",total]]
     bar.draw(data,population.length)
