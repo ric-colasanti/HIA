@@ -10,6 +10,7 @@ var caCanvas = new CACanvas(size);
 var places
 var population = []
 var greenspaces = []
+data = []
 visible_canvas.addEventListener("click", canvasClick);
 
 
@@ -88,7 +89,7 @@ var healthUpdate = function () {
         const person = population[i];
         total+=person.health
     }
-    data=[["Health",total]]
+    data.push(["Health"+data.length,total])
     bar.draw(data,population.length)
     draw()
 }
@@ -130,5 +131,5 @@ var draw = function () {
     caCanvas.update("cacanvas");
 }
 
-var bar = new BarChart("#bar",200,200)
+var bar = new BarChart("#bar",400,200)
 
