@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
     />
     <style>
-        canvas {
-          padding-left: 0;
-          padding-right: 0;
-          margin-left: auto;
-          margin-right: auto;
-          display: block;
-          width: 400px;
-          height: 400px;
-          border-style: solid;
-          border-width: 0.5px;
-        }
-      </style>
+      canvas {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 400px;
+        height: 400px;
+        border-style: solid;
+        border-width: 0.5px;
+      }
+    </style>
     <title>HIA Demo01</title>
-</head>
-<body>
-  <div class="container" style="margin-top: 80px">    
-    <h2>HIA Demo 01</h2>
-    <div class="row">
+  </head>
+  <body>
+    <div class="container" style="margin-top: 80px">
+      <h2>HIA Demo 01</h2>
+      <div class="row">
         <div class="col-sm-7">
-          <canvas id="cacanvas" style=" width:600px; height:600px"></canvas>
+          <canvas id="cacanvas" style="width: 600px; height: 600px"></canvas>
         </div>
         <div class="col-sm-5">
-          <div >Percentage households</div>
-          <div >
+          <div>Percentage households</div>
+          <div>
             <input
               type="range"
               min="1"
@@ -43,18 +43,18 @@
               onchange="setVals()"
             />
           </div>
-          <div>
-            <span id="numberOfHomesLab">40</span>%
+          <div><span id="numberOfHomesLab">40</span>%</div>
+          <button class="btn btn-primary tablinks" onclick="setup()">
+            Set
+          </button>
         </div>
-        <button class="btn btn-primary tablinks" onclick="setup()">
-          Set
-        </button>
-  </div>
-  
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/ABM.js"></script>
-  <script src="js/hia.js"></script>
-</body>
+        <br>
+        <p>Click Set to set up environment. Then click on square to make green space. Click on set to reset environment</p>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/ABM.js"></script>
+    <script src="js/hia.js"></script>
+  </body>
 </html>
