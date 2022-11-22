@@ -14,7 +14,7 @@ visible_canvas.addEventListener("click", canvasClick);
 var setVals = function () {
     console.log("here");
     households = Number(document.getElementById("numberOfHomes").value);
-    document.getElementById("numberOfHomes").innerHTML = households
+    document.getElementById("numberOfHomesLab").innerHTML = households
 }   
 
 class LandType extends Patch {
