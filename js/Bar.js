@@ -49,6 +49,8 @@ class BarChart {
         .attr("y", function(dd) { return yy(dd[1]); })
         .attr("height", function(dd) {  return height - yy(dd[1])});
           // add the x Axis
+          chart.exit().remove()
+          
           this.xAxis
               .attr("transform", "translate(0," + height + ")")
               .call(d3.axisBottom(xx));

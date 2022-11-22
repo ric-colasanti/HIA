@@ -115,6 +115,9 @@ var setup = function () {
         }
     }
     places.setNeighbors()
+    document.getElementById("bar").innerHTML=""
+    bar = new BarChart("#bar",400,200)
+    bar.draw(data,population.length)
     draw()
 
 }
